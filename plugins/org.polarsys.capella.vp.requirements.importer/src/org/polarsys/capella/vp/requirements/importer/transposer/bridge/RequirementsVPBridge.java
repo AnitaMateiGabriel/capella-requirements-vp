@@ -20,10 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.diffmerge.api.scopes.IEditableModelScope;
 import org.eclipse.emf.diffmerge.bridge.api.IBridge;
 import org.eclipse.emf.diffmerge.bridge.api.IBridgeTrace;
+import org.eclipse.emf.diffmerge.bridge.api.incremental.IIncrementalBridgeExecution;
 import org.eclipse.emf.diffmerge.bridge.incremental.BridgeTraceBasedMatchPolicy;
 import org.eclipse.emf.diffmerge.bridge.interactive.EMFInteractiveBridge;
 import org.eclipse.emf.diffmerge.bridge.interactive.UpdateDialog;
@@ -91,8 +93,13 @@ public class RequirementsVPBridge extends EMFInteractiveBridge<IEditableModelSco
     initializeTrace(trace);
     return trace;
   }
+  
+public IStatus merge(IIncrementalBridgeExecution execution_p, IProgressMonitor monitor_p) {
+	// TODO Auto-generated method stub
+	return super.merge(_sourceScope, _targetScope, execution_p, monitor_p);
+}
 
-  @Override
+@Override
   protected EComparison compare(IEditableModelScope created, IEditableModelScope existing, IBridgeTrace createdTrace,
       IBridgeTrace existingTrace, IProgressMonitor monitor) {
     EComparison result = new EComparisonImpl(existing, created);

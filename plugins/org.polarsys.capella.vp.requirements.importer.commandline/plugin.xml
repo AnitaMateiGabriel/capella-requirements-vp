@@ -12,6 +12,30 @@
        Thales - initial API and implementation
 -->
 <plugin>
+<extension point="org.polarsys.kitalpha.cadence.core.activity.declaration">
+      <ActivityDeclaration
+            Identifier="org.polarsys.capella.vp.requirements.importer.commandline.CommandLineInitializeTransformation"
+            ActivityClass="org.polarsys.capella.vp.requirements.importer.commandline.CommandLineInitializeTransformation"
+            Name="org.polarsys.capella.vp.requirements.importer.commandline.CommandLineInitializeTransformation"
+            Multiple="false"
+            WorkflowElementIdentifier="transition.workflow.init"
+            WorkflowIdentifier="transition.workflow">
+         <Description>
+            Description body text
+         </Description>
+      </ActivityDeclaration>
+       <ActivityDeclaration
+            Identifier="org.polarsys.capella.vp.requirements.importer.commandline.CommandLineTransposerTransformation"
+            ActivityClass="org.polarsys.capella.vp.requirements.importer.commandline.CommandLineTransposerTransformation"
+            Name="org.polarsys.capella.vp.requirements.importer.commandline.CommandLineTransposerTransformation"
+            Multiple="false"
+            WorkflowElementIdentifier="transition.workflow.transposer"
+            WorkflowIdentifier="transition.workflow">
+         <Description>
+            Description body text
+         </Description>
+      </ActivityDeclaration>
+    </extension>
    <extension
          point="org.polarsys.capella.core.commandline.core.commandline">
       <CommandlineExtension

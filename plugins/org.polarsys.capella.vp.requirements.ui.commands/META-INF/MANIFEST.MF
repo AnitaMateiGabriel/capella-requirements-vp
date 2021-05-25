@@ -28,3 +28,4 @@ Export-Package: org.polarsys.capella.vp.requirements.ui.commands,
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
+Import-Package: org.polarsys.capella.vp.requirements.importer.commandline

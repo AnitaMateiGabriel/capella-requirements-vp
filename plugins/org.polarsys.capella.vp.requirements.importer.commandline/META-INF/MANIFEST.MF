@@ -8,7 +8,14 @@ Require-Bundle: org.eclipse.core.runtime,
  org.polarsys.capella.core.commandline.core,
  org.polarsys.capella.core.data.gen,
  org.polarsys.capella.core.model.handler,
- org.polarsys.capella.core.model.helpers
+ org.polarsys.capella.core.model.helpers,
+ org.polarsys.capella.vp.requirements.importer,
+ org.polarsys.capella.core.libraries,
+ org.polarsys.capella.shared.id.handler,
+ org.eclipse.osgi,
+ org.polarsys.capella.core.commandline.core.ui
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
 Export-Package: org.polarsys.capella.vp.requirements.importer.commandline
+Bundle-Activator: org.polarsys.capella.vp.requirements.importer.commandline.RequirementsImporterCommandlinePlugin
+Bundle-ActivationPolicy: lazy

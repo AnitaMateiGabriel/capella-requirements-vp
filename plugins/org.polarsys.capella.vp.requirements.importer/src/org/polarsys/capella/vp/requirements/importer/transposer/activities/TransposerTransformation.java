@@ -29,11 +29,13 @@ import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.diffmerge.api.scopes.IEditableModelScope;
 import org.eclipse.emf.diffmerge.bridge.api.IBridgeTrace;
 import org.eclipse.emf.diffmerge.bridge.api.incremental.IIncrementalBridgeExecution;
@@ -130,8 +132,9 @@ public class TransposerTransformation extends AbstractActivity {
       subMonitor.split(30);
       try {
         traceResource.save(Collections.emptyMap());
-        Session session = SessionManager.INSTANCE.getSession(modelResource);
-        session.save(subMonitor.split(70));
+//        Session session = SessionManager.INSTANCE.getSession(modelResource);
+//      Session session = SessionManager.INSTANCE.getSession(URI.createPlatformResourceURI("/sample3/sample3.capella", true), new NullProgressMonitor());
+//        session.save(subMonitor.split(70));
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -239,7 +242,7 @@ public class TransposerTransformation extends AbstractActivity {
    * @param requirementBridgeExecution
    * @param monitor
    */
-  private void mergeRequirements(ExecutionManager executionManager, RequirementsVPBridge requirementBridge,
+  protected void mergeRequirements(ExecutionManager executionManager, RequirementsVPBridge requirementBridge,
       IIncrementalBridgeExecution requirementBridgeExecution, SubMonitor monitor) {
 
     monitor.beginTask("Merge requirements", 1);
@@ -248,14 +251,34 @@ public class TransposerTransformation extends AbstractActivity {
     executionManager.execute(new AbstractReadWriteCommand() {
       @Override
       public void run() {
-        IStatus result = requirementBridge.mergeInteractively(requirementBridgeExecution, monitor);
-        if (result == Status.CANCEL_STATUS) {
+//        IStatus result = requirementBridge.mergeInteractively(requirementBridgeExecution, monitor);
+    	  IStatus result = requirementBridge.merge(requirementBridgeExecution, monitor);
+    	  if (result == Status.CANCEL_STATUS) {
           setMergeOperationCanceled(true);
           throw new OperationCanceledException(result.getMessage());
         }
       }
     });
   }
+//  
+//  private void merge(ExecutionManager executionManager, RequirementsVPBridge requirementBridge,
+//      IIncrementalBridgeExecution requirementBridgeExecution, SubMonitor monitor) {
+//
+//    monitor.beginTask("Merge requirements", 1);
+//    setMergeOperationCanceled(false);
+//
+//    executionManager.execute(new AbstractReadWriteCommand() {
+//      @Override
+//      public void run() {
+//        IStatus result = requirementBridge.mergeInteractively(requirementBridgeExecution, monitor);
+//        result = requirementBridge.merge(requirementBridge., null, requirementBridgeExecution, monitor)
+//        if (result == Status.CANCEL_STATUS) {
+//          setMergeOperationCanceled(true);
+//          throw new OperationCanceledException(result.getMessage());
+//        }
+//      }
+//    });
+//  }
 
   /**
    * Saves the model resource, trace resource and cleans existing holding resources.
@@ -267,6 +290,9 @@ public class TransposerTransformation extends AbstractActivity {
    */
   private void saveAndCleanResources(ExecutionManager executionManager, Resource modelResource, Resource traceResource,
       SubMonitor monitor) {
+//      saveResources(modelResource, traceResource, monitor);
+
+//      HoldingResourceHelper.flushHoldingResource(TransactionHelper.getEditingDomain(modelResource));
     executionManager.execute(new AbstractReadWriteCommand() {
       @Override
       public void run() {

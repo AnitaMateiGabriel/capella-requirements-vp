@@ -130,6 +130,8 @@ public class InitializeTransformation extends AbstractActivity {
     return Status.OK_STATUS;
   }
 
+  
+  
   protected TransactionalEditingDomain getTransformationDomain(IEditableModelScope definition) {
     return TransactionUtil
         .getEditingDomain(((FragmentedModelScope) definition).getRootResources().iterator().next().getResourceSet());
